@@ -1,4 +1,5 @@
 types Notifications {
+	
 
     ######################################################
     ###################### ALERTS ########################
@@ -877,7 +878,7 @@ types Notifications {
                         name = "portrait_right"
                         datacontext = "[PlayerMessageItem.GetRightCharacter]"
                         visible = "[Character.IsValid]"
-                        parentanchor = center
+                        parentanchor = vcenter
                         position = { 0 -25 }
 
                         blockoverride "opinon_box" {}
@@ -951,7 +952,7 @@ types Notifications {
         visible = "[And( Not( IsPauseMenuShown ), And( Not(SinglePlayerShowingPausedSuccession), ActionItemHandler.ShouldBeVisible))]"
         alwaystransparent = no
         allow_outside = yes
-
+		
         using = Animation_ShowHide_Quick
 
         ## Suggestions / Current Situation toggle button
@@ -1189,11 +1190,11 @@ types Notifications {
 
         window = {
             visible = "[And(ActionItemHandler.IsListVisible, Not(GetVariableSystem.Exists( 'right_window_open')))]"
-            parentanchor = center
-            position = { 30 80 }
+            parentanchor = hcenter
+            position = { 0 0 }
             alwaystransparent = no
             filter_mouse = all
-			movable = yes
+			
 
             state = {
                 name = _show
