@@ -4,5 +4,5 @@ tags={
 }
 name="Movable Suggestions"
 picture="thumbnail.png"
-supported_version="1.5.0.2"
+supported_version="1.9.0.3"
 remote_file_id="2221751176"
