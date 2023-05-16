@@ -1180,7 +1180,8 @@ types Notifications {
     ######################################################
     type notifications_suggestions = window {
         name = "action_items"
-        visible = "[And( Not( IsPauseMenuShown ), And( Not(SinglePlayerShowingPausedSuccession), ActionItemHandler.ShouldBeVisible))]"
+        #visible = "[And( Not( IsPauseMenuShown ), And( Not(SinglePlayerShowingPausedSuccession), ActionItemHandler.ShouldBeVisible))]"
+		visible = "[And( Not( IsPauseMenuShown ), And( Not(SinglePlayerShowingPausedSuccession), ActionItemHandler.ShouldBeVisible))]"
 		visible_at_creation = no
         alwaystransparent = no
         allow_outside = yes
@@ -1433,14 +1434,17 @@ types Notifications {
                 name = _show
                 using = Animation_FadeIn_Quick
                 using = Sound_WindowShow_Suggestion
-                #position_y = 80
+                #disable postion reset
+				#position_y = 80
+		
             }
 
             state = {
                 name = _hide
                 using = Animation_FadeOut_Quick
                 using = Sound_WindowHide_Suggestion
-                #position_y = 40
+                #disable postion reset
+				#position_y = 40
             }
 
             background = {
@@ -1514,7 +1518,7 @@ types Notifications {
             widget = {
                 name = "button"
                 parentanchor = top|right
-                position = { -5 5 }
+                position = { -5 0 }
 
                 background = {
                     using = Background_Area
@@ -1542,9 +1546,9 @@ types Notifications {
             vbox = {
                 name = "action_items_container"
                 set_parent_size_to_minimum = yes
-                minimumsize = { 384 50 }
-                margin_top = 14
-                spacing = 15
+                minimumsize = { 440 50 }
+                margin_top = 4
+                spacing = 10
                 ignoreinvisible = yes
 
                 vbox = {
@@ -1572,12 +1576,12 @@ types Notifications {
                         datamodel = "[AccessSuggestionItems]"
                         layoutpolicy_horizontal = expanding
                         direction = vertical
-                        margin_left = 20
+                        margin_left = 10
                         ignoreinvisible = yes
 
                         item = {
                             button_suggestion_item = {
-                                minimumsize = { 340 0 }
+                                minimumsize = { 440 0 }
                             }
                         }
                     }
@@ -1586,9 +1590,9 @@ types Notifications {
                 vbox = {
                     name = "actions"
                     layoutpolicy_horizontal = expanding
-                    spacing = 5
+                    spacing = 2
                     margin = { 8 0 }
-                    margin_bottom = 8
+                    margin_bottom = 2
 
                     vbox = {
                         layoutpolicy_horizontal = expanding
@@ -1596,8 +1600,8 @@ types Notifications {
                         text_single = {
                             layoutpolicy_horizontal = expanding
                             text = "CURRENT_SITUATION_HEADER"
-                            max_width = 220
-                            using = Font_Size_Medium
+                            max_width = 440
+                            using = Font_Size_Small
                             allow_outside = yes
                             align = center
                             using = Font_Type_Flavor
@@ -1609,7 +1613,7 @@ types Notifications {
 
                                 button_change = {
                                     name = "reset_dismissed"
-                                    position = { 2 -2 }
+                                    position = { -64 2 }
                                     onclick = "[ActionItemHandler.ResetAllDismissed]"
                                     tooltip = "RESET_DISMISSED_TOOLTIP"
 
@@ -1639,39 +1643,39 @@ types Notifications {
                     container = {
                         scrollbox = {
                             visible = "[ActionItemHandler.HasAvailableCurrentSituationItems]"
-                            maximumsize = { -1 600 }
+                            maximumsize = { -1 720 }
 
                             blockoverride "scrollbox_background_fade" {}
                             blockoverride "scrollbox_background" {}
 
                             blockoverride "scrollbox_margins"
                             {
-                                margin_bottom = 15
-                                margin_left = 14
-                                margin_right = 14
+                                margin_bottom = 2
+                                margin_left = 2
+                                margin_right = 2
                             }
 
                             blockoverride "scrollbox_content" {
                                 name = "current_situation"
                                 datamodel = "[ActionItemHandler.GetGuiActionItems]"
                                 set_parent_size_to_minimum = yes
-                                spacing = 5
+                                spacing = 3
 
                                 item = {
                                     flowcontainer = {
                                         ignoreinvisible = yes
-                                        minimumsize = { 368 0 }
+                                        minimumsize = { 440 0 }
                                         direction = vertical
 
                                         button_current_situation_item = {
                                             visible = "[And(GuiActionItem.IsVisible, Not(GuiActionItem.HasMultipleActions))]"
                                             datacontext = "[GuiActionItem.GetFirstVisibleActionItem]"
-                                            minimumsize = { 360 0 }
+                                            minimumsize = { 440 0 }
                                         }
 
                                         button_current_situation_item_multiple = {
                                             visible = "[And(GuiActionItem.IsVisible, GuiActionItem.HasMultipleActions)]"
-                                            minimumsize = { 360 0 }
+                                            minimumsize = { 440 0 }
                                         }
 
                                         flowcontainer = {
@@ -1682,15 +1686,16 @@ types Notifications {
                                             spacing = 3
 
                                             margin_left = 10
-                                            margin_top = 3
-                                            margin_bottom = 5
+                                            margin_top = 1
+                                            margin_bottom = 1
 
                                             ignoreinvisible = yes
 
                                             item = {
                                                 button_current_situation_item_combined = {
                                                     datacontext = "[GuiActionImportantActionItem.GetImportantAction]"
-                                                    minimumsize = { 350 0 }
+                                                    minimumsize = { 440
+ 0 }
                                                 }
                                             }
                                         }
@@ -1722,7 +1727,7 @@ types Notifications {
             ignoreinvisible = yes
 
             widget = {
-                size = { 450 0 }
+                size = { 440 0 }
 
                 state = {
                     name = _show
@@ -1895,7 +1900,7 @@ types Notifications {
                             widget = {
                                 name = "message_feed_text_area"
                                 layoutpolicy_horizontal = expanding
-                                size = { 450 0 }
+                                size = { 440 0 }
                                 scissor = yes
 
                                 state = {
@@ -1903,7 +1908,7 @@ types Notifications {
                                     next = "hide_text_2"
                                     trigger_when = "[FeedMessageItem.ShouldHide]"
                                     duration = 0
-                                    size = { 450 180 }
+                                    size = { 440 180 }
                                 }
 
                                 state = {
@@ -2226,7 +2231,7 @@ types Suggestions
 
             text_multi = {
                 autoresize = yes
-                max_width = 315
+                max_width = 430
                 text = "ACTION_IS_VISIBLE_READ_UNREAD"
                 alwaystransparent = yes
             }
@@ -2352,7 +2357,7 @@ types Suggestions
             text_multi = {
                 layoutpolicy_horizontal = expanding
                 autoresize = yes
-                max_width = 300
+                max_width = 400
 
                 align = nobaseline
                 text = "ACTION_IS_VISIBLE_READ_UNREAD_COMBINED"
